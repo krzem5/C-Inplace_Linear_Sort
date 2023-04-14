@@ -15,15 +15,6 @@ unsigned int inplace_linear_sort(void* data,unsigned int stride,unsigned int len
 	for (unsigned int j=0;j<length;j++){
 		unsigned char* swap_ptr=NULL;
 		if (compare_fn(data+i*stride,ctx)){
-			if (i==start){
-				i++;
-			}
-			else{
-				swap_ptr=data+start*stride;
-			}
-			start++;
-		}
-		else{
 			end--;
 			if (i==end){
 				i--;
@@ -31,6 +22,15 @@ unsigned int inplace_linear_sort(void* data,unsigned int stride,unsigned int len
 			else{
 				swap_ptr=data+end*stride;
 			}
+		}
+		else{
+			if (i==start){
+				i++;
+			}
+			else{
+				swap_ptr=data+start*stride;
+			}
+			start++;
 		}
 		if (!swap_ptr){
 			continue;
@@ -40,7 +40,9 @@ unsigned int inplace_linear_sort(void* data,unsigned int stride,unsigned int len
 			unsigned char tmp=*elem_ptr;
 			*elem_ptr=*swap_ptr;
 			*swap_ptr=tmp;
+			elem_ptr++;
+			swap_ptr++;
 		}
 	}
-	return 0;
+	return start;
 }
