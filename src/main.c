@@ -10,7 +10,7 @@
 
 
 
-static _Bool _check_if_above(const void* element,void* ctx){
+static _Bool _check_if_above_or_equal(const void* element,void* ctx){
 	return *((const unsigned int*)element)>=*((unsigned int*)ctx);
 }
 
@@ -23,7 +23,7 @@ int main(int argc,const char*const* argv){
 		data[i]=rand()%NUMBER_MAX;
 	}
 	unsigned int break_value=rand()%NUMBER_MAX;
-	unsigned int break_index=inplace_linear_sort(data,sizeof(unsigned int),NUMBER_COUNT,_check_if_above,&break_value);
+	unsigned int break_index=inplace_linear_sort(data,sizeof(unsigned int),NUMBER_COUNT,_check_if_above_or_equal,&break_value);
 	unsigned int i=0;
 	while (1){
 		if (i==break_index){
